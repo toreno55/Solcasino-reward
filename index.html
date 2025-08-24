@@ -1,1670 +1,723 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dapps Chain™</title>
-  <meta property="og:title" content="Dapp">
-  <meta property="og:description" content="The onchain UX ecosystem">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dapp.network">
-  <meta property="og:image"
-    content="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dapp">
-  <meta name="twitter:description" content="The onchain UX ecosystem">
-  <meta name="twitter:image"
-    content="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80">
-  <link rel="icon" type="image/png" href="/connect/images/favicon.png">
-  <!-- <script type="module" crossorigin="" src="/assets/index-DXJ1YJdW.js"></script> -->
-  <link rel="stylesheet" crossorigin="" href="/assets/index-yLnqVbwP.css">
-  <style type="text/css">
-    :where(html[dir="ltr"]),
-    :where([data-sonner-toaster][dir="ltr"]) {
-      --toast-icon-margin-start: -3px;
-      --toast-icon-margin-end: 4px;
-      --toast-svg-margin-start: -1px;
-      --toast-svg-margin-end: 0px;
-      --toast-button-margin-start: auto;
-      --toast-button-margin-end: 0;
-      --toast-close-button-start: 0;
-      --toast-close-button-end: unset;
-      --toast-close-button-transform: translate(-35%, -35%)
-    }
 
-    :where(html[dir="rtl"]),
-    :where([data-sonner-toaster][dir="rtl"]) {
-      --toast-icon-margin-start: 4px;
-      --toast-icon-margin-end: -3px;
-      --toast-svg-margin-start: 0px;
-      --toast-svg-margin-end: -1px;
-      --toast-button-margin-start: 0;
-      --toast-button-margin-end: auto;
-      --toast-close-button-start: unset;
-      --toast-close-button-end: 0;
-      --toast-close-button-transform: translate(35%, -35%)
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <title>Dapps Chain™</title>
 
-    :where([data-sonner-toaster]) {
-      position: fixed;
-      width: var(--width);
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-      --gray1: hsl(0, 0%, 99%);
-      --gray2: hsl(0, 0%, 97.3%);
-      --gray3: hsl(0, 0%, 95.1%);
-      --gray4: hsl(0, 0%, 93%);
-      --gray5: hsl(0, 0%, 90.9%);
-      --gray6: hsl(0, 0%, 88.7%);
-      --gray7: hsl(0, 0%, 85.8%);
-      --gray8: hsl(0, 0%, 78%);
-      --gray9: hsl(0, 0%, 56.1%);
-      --gray10: hsl(0, 0%, 52.3%);
-      --gray11: hsl(0, 0%, 43.5%);
-      --gray12: hsl(0, 0%, 9%);
-      --border-radius: 8px;
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      outline: none;
-      z-index: 999999999
-    }
+    <base>
 
-    :where([data-sonner-toaster][data-x-position="right"]) {
-      right: max(var(--offset), env(safe-area-inset-right))
-    }
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    :where([data-sonner-toaster][data-x-position="left"]) {
-      left: max(var(--offset), env(safe-area-inset-left))
-    }
+    <link href="css/icofont.min.css" rel="stylesheet" type="text/css">
 
-    :where([data-sonner-toaster][data-x-position="center"]) {
-      left: 50%;
-      transform: translate(-50%)
-    }
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
 
-    :where([data-sonner-toaster][data-y-position="top"]) {
-      top: max(var(--offset), env(safe-area-inset-top))
-    }
+    <link rel="stylesheet" type="text/css" href="css/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.min.css">
 
-    :where([data-sonner-toaster][data-y-position="bottom"]) {
-      bottom: max(var(--offset), env(safe-area-inset-bottom))
-    }
-
-    :where([data-sonner-toast]) {
-      --y: translateY(100%);
-      --lift-amount: calc(var(--lift) * var(--gap));
-      z-index: var(--z-index);
-      position: absolute;
-      opacity: 0;
-      transform: var(--y);
-      filter: blur(0);
-      touch-action: none;
-      transition: transform .4s, opacity .4s, height .4s, box-shadow .2s;
-      box-sizing: border-box;
-      outline: none;
-      overflow-wrap: anywhere
-    }
-
-    :where([data-sonner-toast][data-styled="true"]) {
-      padding: 16px;
-      background: var(--normal-bg);
-      border: 1px solid var(--normal-border);
-      color: var(--normal-text);
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 12px #0000001a;
-      width: var(--width);
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      gap: 6px
-    }
-
-    :where([data-sonner-toast]:focus-visible) {
-      box-shadow: 0 4px 12px #0000001a, 0 0 0 2px #0003
-    }
-
-    :where([data-sonner-toast][data-y-position="top"]) {
-      top: 0;
-      --y: translateY(-100%);
-      --lift: 1;
-      --lift-amount: calc(1 * var(--gap))
-    }
-
-    :where([data-sonner-toast][data-y-position="bottom"]) {
-      bottom: 0;
-      --y: translateY(100%);
-      --lift: -1;
-      --lift-amount: calc(var(--lift) * var(--gap))
-    }
-
-    :where([data-sonner-toast]) :where([data-description]) {
-      font-weight: 400;
-      line-height: 1.4;
-      color: inherit
-    }
-
-    :where([data-sonner-toast]) :where([data-title]) {
-      font-weight: 500;
-      line-height: 1.5;
-      color: inherit
-    }
-
-    :where([data-sonner-toast]) :where([data-icon]) {
-      display: flex;
-      height: 16px;
-      width: 16px;
-      position: relative;
-      justify-content: flex-start;
-      align-items: center;
-      flex-shrink: 0;
-      margin-left: var(--toast-icon-margin-start);
-      margin-right: var(--toast-icon-margin-end)
-    }
-
-    :where([data-sonner-toast][data-promise="true"]) :where([data-icon])>svg {
-      opacity: 0;
-      transform: scale(.8);
-      transform-origin: center;
-      animation: sonner-fade-in .3s ease forwards
-    }
-
-    :where([data-sonner-toast]) :where([data-icon])>* {
-      flex-shrink: 0
-    }
-
-    :where([data-sonner-toast]) :where([data-icon]) svg {
-      margin-left: var(--toast-svg-margin-start);
-      margin-right: var(--toast-svg-margin-end)
-    }
-
-    :where([data-sonner-toast]) :where([data-content]) {
-      display: flex;
-      flex-direction: column;
-      gap: 2px
-    }
-
-    [data-sonner-toast][data-styled=true] [data-button] {
-      border-radius: 4px;
-      padding-left: 8px;
-      padding-right: 8px;
-      height: 24px;
-      font-size: 12px;
-      color: var(--normal-bg);
-      background: var(--normal-text);
-      margin-left: var(--toast-button-margin-start);
-      margin-right: var(--toast-button-margin-end);
-      border: none;
-      cursor: pointer;
-      outline: none;
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      transition: opacity .4s, box-shadow .2s
-    }
-
-    :where([data-sonner-toast]) :where([data-button]):focus-visible {
-      box-shadow: 0 0 0 2px #0006
-    }
-
-    :where([data-sonner-toast]) :where([data-button]):first-of-type {
-      margin-left: var(--toast-button-margin-start);
-      margin-right: var(--toast-button-margin-end)
-    }
-
-    :where([data-sonner-toast]) :where([data-cancel]) {
-      color: var(--normal-text);
-      background: rgba(0, 0, 0, .08)
-    }
-
-    :where([data-sonner-toast][data-theme="dark"]) :where([data-cancel]) {
-      background: rgba(255, 255, 255, .3)
-    }
-
-    :where([data-sonner-toast]) :where([data-close-button]) {
-      position: absolute;
-      left: var(--toast-close-button-start);
-      right: var(--toast-close-button-end);
-      top: 0;
-      height: 20px;
-      width: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0;
-      background: var(--gray1);
-      color: var(--gray12);
-      border: 1px solid var(--gray4);
-      transform: var(--toast-close-button-transform);
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 1;
-      transition: opacity .1s, background .2s, border-color .2s
-    }
-
-    :where([data-sonner-toast]) :where([data-close-button]):focus-visible {
-      box-shadow: 0 4px 12px #0000001a, 0 0 0 2px #0003
-    }
-
-    :where([data-sonner-toast]) :where([data-disabled="true"]) {
-      cursor: not-allowed
-    }
-
-    :where([data-sonner-toast]):hover :where([data-close-button]):hover {
-      background: var(--gray2);
-      border-color: var(--gray5)
-    }
-
-    :where([data-sonner-toast][data-swiping="true"]):before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 100%;
-      z-index: -1
-    }
-
-    :where([data-sonner-toast][data-y-position="top"][data-swiping="true"]):before {
-      bottom: 50%;
-      transform: scaleY(3) translateY(50%)
-    }
-
-    :where([data-sonner-toast][data-y-position="bottom"][data-swiping="true"]):before {
-      top: 50%;
-      transform: scaleY(3) translateY(-50%)
-    }
-
-    :where([data-sonner-toast][data-swiping="false"][data-removed="true"]):before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      transform: scaleY(2)
-    }
-
-    :where([data-sonner-toast]):after {
-      content: "";
-      position: absolute;
-      left: 0;
-      height: calc(var(--gap) + 1px);
-      bottom: 100%;
-      width: 100%
-    }
-
-    :where([data-sonner-toast][data-mounted="true"]) {
-      --y: translateY(0);
-      opacity: 1
-    }
-
-    :where([data-sonner-toast][data-expanded="false"][data-front="false"]) {
-      --scale: var(--toasts-before) * .05 + 1;
-      --y: translateY(calc(var(--lift-amount) * var(--toasts-before))) scale(calc(-1 * var(--scale)));
-      height: var(--front-toast-height)
-    }
-
-    :where([data-sonner-toast])>* {
-      transition: opacity .4s
-    }
-
-    :where([data-sonner-toast][data-expanded="false"][data-front="false"][data-styled="true"])>* {
-      opacity: 0
-    }
-
-    :where([data-sonner-toast][data-visible="false"]) {
-      opacity: 0;
-      pointer-events: none
-    }
-
-    :where([data-sonner-toast][data-mounted="true"][data-expanded="true"]) {
-      --y: translateY(calc(var(--lift) * var(--offset)));
-      height: var(--initial-height)
-    }
-
-    :where([data-sonner-toast][data-removed="true"][data-front="true"][data-swipe-out="false"]) {
-      --y: translateY(calc(var(--lift) * -100%));
-      opacity: 0
-    }
-
-    :where([data-sonner-toast][data-removed="true"][data-front="false"][data-swipe-out="false"][data-expanded="true"]) {
-      --y: translateY(calc(var(--lift) * var(--offset) + var(--lift) * -100%));
-      opacity: 0
-    }
-
-    :where([data-sonner-toast][data-removed="true"][data-front="false"][data-swipe-out="false"][data-expanded="false"]) {
-      --y: translateY(40%);
-      opacity: 0;
-      transition: transform .5s, opacity .2s
-    }
-
-    :where([data-sonner-toast][data-removed="true"][data-front="false"]):before {
-      height: calc(var(--initial-height) + 20%)
-    }
-
-    [data-sonner-toast][data-swiping=true] {
-      transform: var(--y) translateY(var(--swipe-amount, 0px));
-      transition: none
-    }
-
-    [data-sonner-toast][data-swipe-out=true][data-y-position=bottom],
-    [data-sonner-toast][data-swipe-out=true][data-y-position=top] {
-      animation: swipe-out .2s ease-out forwards
-    }
-
-    @keyframes swipe-out {
-      0% {
-        transform: translateY(calc(var(--lift) * var(--offset) + var(--swipe-amount)));
-        opacity: 1
-      }
-
-      to {
-        transform: translateY(calc(var(--lift) * var(--offset) + var(--swipe-amount) + var(--lift) * -100%));
-        opacity: 0
-      }
-    }
-
-    @media (max-width: 600px) {
-      [data-sonner-toaster] {
-        position: fixed;
-        --mobile-offset: 16px;
-        right: var(--mobile-offset);
-        left: var(--mobile-offset);
-        width: 100%
-      }
-
-      [data-sonner-toaster] [data-sonner-toast] {
-        left: 0;
-        right: 0;
-        width: calc(100% - var(--mobile-offset) * 2)
-      }
-
-      [data-sonner-toaster][data-x-position=left] {
-        left: var(--mobile-offset)
-      }
-
-      [data-sonner-toaster][data-y-position=bottom] {
-        bottom: 20px
-      }
-
-      [data-sonner-toaster][data-y-position=top] {
-        top: 20px
-      }
-
-      [data-sonner-toaster][data-x-position=center] {
-        left: var(--mobile-offset);
-        right: var(--mobile-offset);
-        transform: none
-      }
-    }
-
-    [data-sonner-toaster][data-theme=light] {
-      --normal-bg: #fff;
-      --normal-border: var(--gray4);
-      --normal-text: var(--gray12);
-      --success-bg: hsl(143, 85%, 96%);
-      --success-border: hsl(145, 92%, 91%);
-      --success-text: hsl(140, 100%, 27%);
-      --info-bg: hsl(208, 100%, 97%);
-      --info-border: hsl(221, 91%, 91%);
-      --info-text: hsl(210, 92%, 45%);
-      --warning-bg: hsl(49, 100%, 97%);
-      --warning-border: hsl(49, 91%, 91%);
-      --warning-text: hsl(31, 92%, 45%);
-      --error-bg: hsl(359, 100%, 97%);
-      --error-border: hsl(359, 100%, 94%);
-      --error-text: hsl(360, 100%, 45%)
-    }
-
-    [data-sonner-toaster][data-theme=light] [data-sonner-toast][data-invert=true] {
-      --normal-bg: #000;
-      --normal-border: hsl(0, 0%, 20%);
-      --normal-text: var(--gray1)
-    }
-
-    [data-sonner-toaster][data-theme=dark] [data-sonner-toast][data-invert=true] {
-      --normal-bg: #fff;
-      --normal-border: var(--gray3);
-      --normal-text: var(--gray12)
-    }
-
-    [data-sonner-toaster][data-theme=dark] {
-      --normal-bg: #000;
-      --normal-border: hsl(0, 0%, 20%);
-      --normal-text: var(--gray1);
-      --success-bg: hsl(150, 100%, 6%);
-      --success-border: hsl(147, 100%, 12%);
-      --success-text: hsl(150, 86%, 65%);
-      --info-bg: hsl(215, 100%, 6%);
-      --info-border: hsl(223, 100%, 12%);
-      --info-text: hsl(216, 87%, 65%);
-      --warning-bg: hsl(64, 100%, 6%);
-      --warning-border: hsl(60, 100%, 12%);
-      --warning-text: hsl(46, 87%, 65%);
-      --error-bg: hsl(358, 76%, 10%);
-      --error-border: hsl(357, 89%, 16%);
-      --error-text: hsl(358, 100%, 81%)
-    }
-
-    [data-rich-colors=true][data-sonner-toast][data-type=success],
-    [data-rich-colors=true][data-sonner-toast][data-type=success] [data-close-button] {
-      background: var(--success-bg);
-      border-color: var(--success-border);
-      color: var(--success-text)
-    }
-
-    [data-rich-colors=true][data-sonner-toast][data-type=info],
-    [data-rich-colors=true][data-sonner-toast][data-type=info] [data-close-button] {
-      background: var(--info-bg);
-      border-color: var(--info-border);
-      color: var(--info-text)
-    }
-
-    [data-rich-colors=true][data-sonner-toast][data-type=warning],
-    [data-rich-colors=true][data-sonner-toast][data-type=warning] [data-close-button] {
-      background: var(--warning-bg);
-      border-color: var(--warning-border);
-      color: var(--warning-text)
-    }
-
-    [data-rich-colors=true][data-sonner-toast][data-type=error],
-    [data-rich-colors=true][data-sonner-toast][data-type=error] [data-close-button] {
-      background: var(--error-bg);
-      border-color: var(--error-border);
-      color: var(--error-text)
-    }
-
-    .sonner-loading-wrapper {
-      --size: 16px;
-      height: var(--size);
-      width: var(--size);
-      position: absolute;
-      inset: 0;
-      z-index: 10
-    }
-
-    .sonner-loading-wrapper[data-visible=false] {
-      transform-origin: center;
-      animation: sonner-fade-out .2s ease forwards
-    }
-
-    .sonner-spinner {
-      position: relative;
-      top: 50%;
-      left: 50%;
-      height: var(--size);
-      width: var(--size)
-    }
-
-    .sonner-loading-bar {
-      animation: sonner-spin 1.2s linear infinite;
-      background: var(--gray11);
-      border-radius: 6px;
-      height: 8%;
-      left: -10%;
-      position: absolute;
-      top: -3.9%;
-      width: 24%
-    }
-
-    .sonner-loading-bar:nth-child(1) {
-      animation-delay: -1.2s;
-      transform: rotate(.0001deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(2) {
-      animation-delay: -1.1s;
-      transform: rotate(30deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(3) {
-      animation-delay: -1s;
-      transform: rotate(60deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(4) {
-      animation-delay: -.9s;
-      transform: rotate(90deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(5) {
-      animation-delay: -.8s;
-      transform: rotate(120deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(6) {
-      animation-delay: -.7s;
-      transform: rotate(150deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(7) {
-      animation-delay: -.6s;
-      transform: rotate(180deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(8) {
-      animation-delay: -.5s;
-      transform: rotate(210deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(9) {
-      animation-delay: -.4s;
-      transform: rotate(240deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(10) {
-      animation-delay: -.3s;
-      transform: rotate(270deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(11) {
-      animation-delay: -.2s;
-      transform: rotate(300deg) translate(146%)
-    }
-
-    .sonner-loading-bar:nth-child(12) {
-      animation-delay: -.1s;
-      transform: rotate(330deg) translate(146%)
-    }
-
-    @keyframes sonner-fade-in {
-      0% {
-        opacity: 0;
-        transform: scale(.8)
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1)
-      }
-    }
-
-    @keyframes sonner-fade-out {
-      0% {
-        opacity: 1;
-        transform: scale(1)
-      }
-
-      to {
-        opacity: 0;
-        transform: scale(.8)
-      }
-    }
-
-    @keyframes sonner-spin {
-      0% {
-        opacity: 1
-      }
-
-      to {
-        opacity: .15
-      }
-    }
-
-    @media (prefers-reduced-motion) {
-
-      [data-sonner-toast],
-      [data-sonner-toast]>*,
-      .sonner-loading-bar {
-        transition: none !important;
-        animation: none !important
-      }
-    }
-
-    .sonner-loader {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      transform-origin: center;
-      transition: opacity .2s, transform .2s
-    }
-
-    .sonner-loader[data-visible=false] {
-      opacity: 0;
-      transform: scale(.8) translate(-50%, -50%)
-    }
-  </style>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-  <div id="root">
-    <div role="region" aria-label="Notifications (F8)" tabindex="-1" style="pointer-events: none;">
-      <ol tabindex="-1"
-        class="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]">
-      </ol>
-    </div>
-    <div class="min-h-screen">
-      <nav
-        class="fixed top-4 left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300 bg-white/95 rounded-full px-3 py-3 min-w-max w-full max-w-xs md:max-w-xl md:px-6 md:py-3 md:w-auto shadow-lg border border-gray-light">
-        <div class="hidden md:flex items-center justify-between">
-          <div class="text-primary-navy font-bold text-xl">Dapp</div>
-          <div class="flex items-center space-x-8 ml-8"><a
-              class="text-gray-medium transition-colors duration-200 hover:text-primary-navy" href="/">Home</a><a
-              class="text-gray-medium transition-colors duration-200 hover:text-primary-navy"
-              >Features</a><button onclick="window.location.href='connect/index.html'"
-              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary hover:bg-primary/90 h-10 px-4 py-2 btn-primary text-white border-0 shadow-lg">Connect
-              Wallet</button></div>
-        </div>
-        <div class="md:hidden flex items-center justify-center w-full relative"><button
-            class="flex items-center justify-center bg-primary-navy text-white rounded-full w-9 h-9 focus:outline-none focus:ring-2 focus:ring-navy-light transition-colors"
-            style="min-width: unset; padding: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" class="lucide lucide-menu">
-              <line x1="4" x2="20" y1="12" y2="12"></line>
-              <line x1="4" x2="20" y1="6" y2="6"></line>
-              <line x1="4" x2="20" y1="18" y2="18"></line>
-            </svg></button></div>
-      </nav>
-      <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-dark">
-        <div class="absolute inset-0 w-full h-full"><img
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80"
-            alt="Modern technology network" class="hero-image">
-          <div class="hero-overlay"></div>
-        </div>
-        <div class="absolute inset-0 overflow-hidden z-2">
-          <div class="absolute top-20 left-10 animate-float">
-            <div
-              class="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-2xl bg-primary-navy">
-              ₿</div>
-          </div>
-          <div class="absolute top-40 right-20 animate-float" style="animation-delay: 1s;">
-            <div
-              class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shadow-2xl bg-navy-light">
-              Ξ</div>
-          </div>
-          <div class="absolute bottom-40 left-20 animate-float" style="animation-delay: 2s;">
-            <div
-              class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold shadow-2xl bg-primary-navy">
-              $</div>
-          </div>
-        </div>
-        <div class="relative z-10 text-center text-white max-w-6xl mx-auto px-4">
-          <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-lg mt-20">Dapp Network</h1>
-          <h2 class="text-2xl md:text-4xl font-semibold mb-8 text-white">The onchain UX ecosystem</h2>
-          <p class="text-lg md:text-xl mb-12 max-w-3xl mx-auto text-gray-light">Experience seamless blockchain
-            interactions with our comprehensive dApp ecosystem designed for modern Web3 users.</p>
-          <div onclick="window.location.href='connect/index.html'" class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"><button
-              class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 btn-primary px-8 py-3 text-lg rounded-full transform hover:scale-105 transition-transform shadow-lg">Claim
-              Rewards</button><button
-              class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 btn-primary px-8 py-3 text-lg rounded-full transform hover:scale-105 transition-transform shadow-lg">Learn
-              More</button></div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div class="crypto-card rounded-lg p-6">
-              <div class="text-3xl font-bold mb-2 text-primary-navy">$2.5T+</div>
-              <div class="text-gray-dark">Market Cap</div>
-            </div>
-            <div class="crypto-card rounded-lg p-6">
-              <div class="text-3xl font-bold mb-2 text-primary-navy">500K+</div>
-              <div class="text-gray-dark">Active Users</div>
-            </div>
-            <div class="crypto-card rounded-lg p-6">
-              <div class="text-3xl font-bold mb-2 text-primary-navy">99.9%</div>
-              <div class="text-gray-dark">Uptime</div>
-            </div>
-          </div>
-        </div>
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-10"><svg
-            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-arrow-down w-6 h-6 text-white">
-            <path d="M12 5v14"></path>
-            <path d="m19 12-7 7-7-7"></path>
-          </svg></div>
-      </section>
-      <section id="help" class="py-20 px-4 bg-white-off" onclick="window.location.href='connect/index.html'">
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-dark">Dapp Help Center</h2>
-            <p class="text-xl max-w-3xl mx-auto text-gray-medium">Get instant support for your cryptocurrency issues.
-              Our comprehensive help system covers all major blockchain networks and common problems.</p>
-          </div>
-          <div class="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-link w-12 h-12 text-blue-500">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-link w-12 h-12 text-blue-500">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Connection Issues</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Resolve
-                  problems connecting your wallet to dApps and websites.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Wallet not detecting
-                      dApp connection requests</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Connection timeouts or
-                      errors</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">QR code scanning
-                      problems</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Connection Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-circle-x w-12 h-12 text-red-500">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="m15 9-6 6"></path>
-                    <path d="m9 9 6 6"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-circle-x w-12 h-12 text-red-500">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="m15 9-6 6"></path>
-                    <path d="m9 9 6 6"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Transaction Failures</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Solutions
-                  for failed or stuck transactions across multiple chains.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Transactions pending
-                      for too long</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Out of gas
-                      errors</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Nonce issues and
-                      replacements</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Transaction Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-refresh-cw w-12 h-12 text-green-500">
-                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-                    <path d="M21 3v5h-5"></path>
-                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-                    <path d="M8 16H3v5"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-refresh-cw w-12 h-12 text-green-500">
-                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-                    <path d="M21 3v5h-5"></path>
-                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-                    <path d="M8 16H3v5"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Network Switching</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Fix
-                  problems with switching between different blockchain networks.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Wallet not detecting
-                      network changes</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Custom network
-                      addition failures</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Chain ID
-                      mismatches</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Network Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-shield w-12 h-12 text-purple-500">
-                    <path
-                      d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
-                    </path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-shield w-12 h-12 text-purple-500">
-                    <path
-                      d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
-                    </path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Hardware Wallet Issues</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">
-                  Troubleshoot hardware wallet connectivity and authentication.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Ledger USB
-                      connectivity problems</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Device detection
-                      failures</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Firmware compatibility
-                      issues</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Hardware Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-smartphone w-12 h-12 text-orange-500">
-                    <rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
-                    <path d="M12 18h.01"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-smartphone w-12 h-12 text-orange-500">
-                    <rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
-                    <path d="M12 18h.01"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Synchronize Wallet</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Fix wallet
-                  synchronization issues across different devices and platforms.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Wallet data not
-                      syncing between devices</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Balance display
-                      inconsistencies</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Cross-platform
-                      synchronization errors</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Synchronize Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-arrow-right w-12 h-12 text-teal-500">
-                    <path d="M5 12h14"></path>
-                    <path d="m12 5 7 7-7 7"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-arrow-right w-12 h-12 text-teal-500">
-                    <path d="M5 12h14"></path>
-                    <path d="m12 5 7 7-7 7"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Migration</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Seamlessly
-                  migrate your wallet data and assets to new platforms.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Wallet migration
-                      between providers</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Asset transfer
-                      complications</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Data integrity during
-                      migration</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Migration Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-dollar-sign w-12 h-12 text-yellow-500">
-                    <line x1="12" x2="12" y1="2" y2="22"></line>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-dollar-sign w-12 h-12 text-yellow-500">
-                    <line x1="12" x2="12" y1="2" y2="22"></line>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Staking Rewards</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Resolve
-                  issues with staking rewards and validation processes.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Missing or delayed
-                      staking rewards</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Validator selection
-                      problems</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Reward calculation
-                      discrepancies</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Staking Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-lock-open w-12 h-12 text-indigo-500">
-                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-                    <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-lock-open w-12 h-12 text-indigo-500">
-                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-                    <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Unstake Coin</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">
-                  Troubleshoot problems when unstaking your cryptocurrency assets.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Unstaking transactions
-                      failing</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Lockup period
-                      complications</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Withdrawal delays and
-                      errors</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Unstake Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-trending-up w-12 h-12 text-pink-500">
-                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-                    <polyline points="16 7 22 7 22 13"></polyline>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-trending-up w-12 h-12 text-pink-500">
-                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-                    <polyline points="16 7 22 7 22 13"></polyline>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Slippage Error</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Resolve
-                  slippage and price impact issues during trading.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">High slippage
-                      warnings</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Price impact
-                      calculation errors</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Trade execution
-                      failures</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Slippage Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-clock w-12 h-12 text-gray-500">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-clock w-12 h-12 text-gray-500">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Delayed Transaction</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Speed up
-                  or resolve transactions that are taking too long to confirm.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Transactions stuck in
-                      mempool</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Low gas fee
-                      complications</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Network congestion
-                      issues</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Delayed Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-repeat w-12 h-12 text-cyan-500">
-                    <path d="m17 2 4 4-4 4"></path>
-                    <path d="M3 11v-1a4 4 0 0 1 4-4h14"></path>
-                    <path d="m7 22-4-4 4-4"></path>
-                    <path d="M21 13v1a4 4 0 0 1-4 4H3"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-repeat w-12 h-12 text-cyan-500">
-                    <path d="m17 2 4 4-4 4"></path>
-                    <path d="M3 11v-1a4 4 0 0 1 4-4h14"></path>
-                    <path d="m7 22-4-4 4-4"></path>
-                    <path d="M21 13v1a4 4 0 0 1-4 4H3"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Swapping</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Fix token
-                  swapping and exchange-related problems.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">DEX integration
-                      failures</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Token approval
-                      issues</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Swap route
-                      optimization problems</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Swapping Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-key w-12 h-12 text-emerald-500">
-                    <path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"></path>
-                    <path d="m21 2-9.6 9.6"></path>
-                    <circle cx="7.5" cy="15.5" r="5.5"></circle>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-key w-12 h-12 text-emerald-500">
-                    <path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"></path>
-                    <path d="m21 2-9.6 9.6"></path>
-                    <circle cx="7.5" cy="15.5" r="5.5"></circle>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Wallet Recovery</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Recover
-                  access to your wallet using seed phrases and backup methods.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Seed phrase recovery
-                      failures</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Private key import
-                      issues</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Account restoration
-                      problems</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Wallet Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-gem w-12 h-12 text-rose-500">
-                    <path d="M6 3h12l4 6-10 13L2 9Z"></path>
-                    <path d="M11 3 8 9l4 13 4-13-3-6"></path>
-                    <path d="M2 9h20"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-gem w-12 h-12 text-rose-500">
-                    <path d="M6 3h12l4 6-10 13L2 9Z"></path>
-                    <path d="M11 3 8 9l4 13 4-13-3-6"></path>
-                    <path d="M2 9h20"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Asset Recovery</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Recover
-                  lost or missing cryptocurrency assets and tokens.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Missing token
-                      balances</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Lost asset
-                      transfers</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Contract interaction
-                      failures</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Asset Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-git-branch w-12 h-12 text-violet-500">
-                    <line x1="6" x2="6" y1="3" y2="15"></line>
-                    <circle cx="18" cy="6" r="3"></circle>
-                    <circle cx="6" cy="18" r="3"></circle>
-                    <path d="M18 9a9 9 0 0 1-9 9"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-git-branch w-12 h-12 text-violet-500">
-                    <line x1="6" x2="6" y1="3" y2="15"></line>
-                    <circle cx="18" cy="6" r="3"></circle>
-                    <circle cx="6" cy="18" r="3"></circle>
-                    <path d="M18 9a9 9 0 0 1-9 9"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Bridging Issues</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Resolve
-                  cross-chain bridge transaction and asset transfer problems.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Cross-chain transfer
-                      failures</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Bridge protocol
-                      errors</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Asset
-                      wrapping/unwrapping issues</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Bridging Issues</button>
-              </div>
-            </div>
-            <div
-              class="rounded-lg text-card-foreground group cursor-pointer transform hover:scale-105 transition-all duration-500 border-0 overflow-hidden bg-white hover:bg-white mx-auto max-w-xs sm:max-w-none shadow-lg hover:shadow-xl">
-              <div
-                class="h-32 flex items-center justify-center relative overflow-hidden transition-all duration-500 group-hover:h-36 bg-white">
-                <div
-                  class="opacity-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110 transition-transform duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-bug w-12 h-12 text-slate-500">
-                    <path d="m8 2 1.88 1.88"></path>
-                    <path d="M14.12 3.88 16 2"></path>
-                    <path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"></path>
-                    <path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"></path>
-                    <path d="M12 20v-9"></path>
-                    <path d="M6.53 9C4.6 8.8 3 7.1 3 5"></path>
-                    <path d="M6 13H2"></path>
-                    <path d="M3 21c0-2.1 1.7-3.9 3.8-4"></path>
-                    <path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"></path>
-                    <path d="M22 13h-4"></path>
-                    <path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"></path>
-                  </svg></div>
-                <div class="z-10 group-hover:scale-110 transition-transform duration-500"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-bug w-12 h-12 text-slate-500">
-                    <path d="m8 2 1.88 1.88"></path>
-                    <path d="M14.12 3.88 16 2"></path>
-                    <path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"></path>
-                    <path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"></path>
-                    <path d="M12 20v-9"></path>
-                    <path d="M6.53 9C4.6 8.8 3 7.1 3 5"></path>
-                    <path d="M6 13H2"></path>
-                    <path d="M3 21c0-2.1 1.7-3.9 3.8-4"></path>
-                    <path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"></path>
-                    <path d="M22 13h-4"></path>
-                    <path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"></path>
-                  </svg></div>
-              </div>
-              <div class="flex flex-col space-y-1.5 p-6 pb-4 transition-all duration-300 group-hover:pb-6">
-                <h3
-                  class="tracking-tight text-xl font-bold text-gray-dark group-hover:text-primary-navy transition-colors duration-300">
-                  Wallet Glitch</h3>
-                <p class="text-sm text-gray-medium group-hover:text-gray-dark transition-colors duration-300">Fix
-                  general wallet glitches and unexpected behavior issues.</p>
-              </div>
-              <div class="p-6 pt-0 space-y-3 transition-all duration-300 group-hover:space-y-4">
-                <div class="space-y-2">
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">UI display
-                      problems</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">App crashes and
-                      freezes</span>
-                  </div>
-                  <div
-                    class="flex items-center space-x-2 text-sm text-gray-medium transform transition-all duration-300 group-hover:translate-x-1">
-                    <div
-                      class="w-2 h-2 bg-primary-navy rounded-full transform transition-all duration-300 group-hover:scale-125">
-                    </div><span class="group-hover:text-gray-dark transition-colors duration-300">Unexpected error
-                      messages</span>
-                  </div>
-                </div><button
-                  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 w-full mt-4 bg-primary-navy hover:bg-navy-dark text-white border-0 transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl">Fix
-                  Wallet Issues</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <footer class="bg-gray-dark text-white">
-        <div class="max-w-7xl mx-auto px-4 py-12">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="col-span-1 md:col-span-2">
-              <div class="mb-6">
-                <h3 class="text-2xl font-bold text-white mb-4">Dapp Network</h3>
-                <p class="text-gray-light max-w-md">The onchain UX ecosystem. Experience seamless blockchain
-                  interactions with our comprehensive dApp platform designed for modern Web3 users.</p>
-              </div>
-              <div class="flex space-x-4"><a href="#" class="text-gray-light hover:text-white transition-colors"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-github">
-                    <path
-                      d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4">
-                    </path>
-                    <path d="M9 18c-4.51 2-5-2-7-2"></path>
-                  </svg></a><a href="#" class="text-gray-light hover:text-white transition-colors"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-twitter">
-                    <path
-                      d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
-                    </path>
-                  </svg></a><a href="#" class="text-gray-light hover:text-white transition-colors"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-linkedin">
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                    <rect width="4" height="12" x="2" y="9"></rect>
-                    <circle cx="4" cy="4" r="2"></circle>
-                  </svg></a><a href="#" class="text-gray-light hover:text-white transition-colors"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-mail">
-                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                  </svg></a></div>
-            </div>
-            <div>
-              <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul class="space-y-2">
-                <li><a class="text-gray-light hover:text-white transition-colors" href="#">Home</a></li>
-                <li><a class="text-gray-light hover:text-white transition-colors" href="#">Wallets</a></li>
-                <li><a class="text-gray-light hover:text-white transition-colors" href="#">Features</a></li>
-                <li><a href="#" class="text-gray-light hover:text-white transition-colors">Help Center</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 class="text-lg font-semibold mb-4">Support</h4>
-              <ul class="space-y-2">
-                <li><a href="#" class="text-gray-light hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" class="text-gray-light hover:text-white transition-colors">API Reference</a></li>
-                <li><a href="#" class="text-gray-light hover:text-white transition-colors">Community</a></li>
-                <li><a href="#" class="text-gray-light hover:text-white transition-colors">Contact Us</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="border-t border-gray-medium mt-8 pt-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-              <div class="text-gray-light text-sm mb-4 md:mb-0">© 2025 Dapp Network. All rights reserved.</div>
-              <div class="flex items-center space-x-6 text-sm"><a href="#"
-                  class="text-gray-light hover:text-white transition-colors">Privacy Policy</a><a href="#"
-                  class="text-gray-light hover:text-white transition-colors">Terms of Service</a><a href="#"
-                  class="text-gray-light hover:text-white transition-colors">Cookie Policy</a></div>
-            </div>
-            <div class="text-center mt-4">
-              <p class="text-gray-light text-sm flex items-center justify-center">Made with <svg
-                  xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="lucide lucide-heart mx-1 text-red-400">
-                  <path
-                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-                  </path>
-                </svg> for the Web3 community</p>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm p-0 osahan-nav">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/dapp_logo.png" alt="#" class="img-fluid">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup16" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup16">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home - Dapps Chain™</a>
+                    </li>
+                </ul>
 
+                <ul class="nav explore-tabs mb-0 justify-content-center gap-2" id="chain-switch-pill" role="tablist">
+
+
+
+
+                    <li class="nav-item" role="presentation" data-chain-id="1">
+                        <button class="nav-link " id="pills-ethereum-tab" data-bs-toggle="pill" type="button" role="tab"
+                            aria-controls="pills-ethereum" aria-selected="true">
+                            <a style="text-decoration:none" href="https://ethereum.org/en/" a="">
+                                <span><img src="images/ethereum.png" width="8"></span>&nbsp;
+                                Ethereum </a></button><a style="text-decoration:none" href="https://ethereum.org/en/"
+                            a="">
+                        </a>
+                    </li><a style="text-decoration:none" href="https://ethereum.org/en/" a="">
+
+
+                    </a>
+                    <li class="nav-item" role="presentation" data-chain-id="2"><a style="text-decoration:none"
+                            href="https://ethereum.org/en/" a="">
+                        </a><button class="nav-link " id="pills-bsc-tab" data-bs-toggle="pill" type="button" role="tab"
+                            aria-controls="pills-bsc" aria-selected="true"><a style="text-decoration:none"
+                                href="https://ethereum.org/en/" a="">
+                            </a><a style="text-decoration:none" href="https://bscscan.com/" a="">
+                                <span><img src="images/binance.png" width="15"></span>&nbsp;
+                                BSC </a></button><a style="text-decoration:none" href="https://bscscan.com/" a="">
+                        </a></li><a style="text-decoration:none" href="https://bscscan.com/" a="">
+
+
+                    </a>
+                    <li class="nav-item" role="presentation" data-chain-id="3"><a style="text-decoration:none"
+                            href="https://bscscan.com/" a="">
+                        </a><button class="nav-link " id="pills-polygon-tab" data-bs-toggle="pill" type="button"
+                            role="tab" aria-controls="pills-polygon" aria-selected="true"><a
+                                style="text-decoration:none" href="https://bscscan.com/" a="">
+                            </a><a style="text-decoration:none" href="https://polygon.technology/" a="">
+                                <span><img src="images/polygon.png" width="15"></span>&nbsp;
+                                Polygon </a></button><a style="text-decoration:none" href="https://polygon.technology/"
+                            a="">
+                        </a></li><a style="text-decoration:none" href="https://polygon.technology/" a="">
+
+
+                    </a>
+                    <li class="nav-item" role="presentation" data-chain-id="4"><a style="text-decoration:none"
+                            href="https://polygon.technology/" a="">
+                        </a><button class="nav-link " id="pills-avalanche-tab" data-bs-toggle="pill" type="button"
+                            role="tab" aria-controls="pills-avalanche" aria-selected="true"><a
+                                style="text-decoration:none" href="https://polygon.technology/" a="">
+                            </a><a style="text-decoration:none" href="https://www.avax.network/" a="">
+                                <span><img src="images/avalanche.png" width="15"></span>&nbsp;
+                                Avalanche </a></button><a style="text-decoration:none" href="https://www.avax.network/"
+                            a="">
+                        </a></li><a style="text-decoration:none" href="https://www.avax.network/" a="">
+
+
+                    </a>
+                    <li class="nav-item" role="presentation" data-chain-id="5"><a style="text-decoration:none"
+                            href="https://www.avax.network/" a="">
+                        </a><button class="nav-link " id="pills-solana-tab" data-bs-toggle="pill" type="button"
+                            role="tab" aria-controls="pills-solana" aria-selected="true"><a style="text-decoration:none"
+                                href="https://www.avax.network/" a="">
+                            </a><a style="text-decoration:none" href="https://solana.com/" a="">
+                                <span><img src="images/solana.png" width="15"></span>&nbsp;
+                                Solana </a></button><a style="text-decoration:none" href="https://solana.com/" a="">
+                        </a></li><a style="text-decoration:none" href="https://solana.com/" a="">
+
+
+                    </a>
+                    <li class="nav-item" role="presentation" data-chain-id="6"><a style="text-decoration:none"
+                            href="https://solana.com/" a="">
+                        </a><button class="nav-link " id="pills-cardano-tab" data-bs-toggle="pill" type="button"
+                            role="tab" aria-controls="pills-cardano" aria-selected="true"><a
+                                style="text-decoration:none" href="https://solana.com/" a="">
+                            </a><a style="text-decoration:none" href="https://cardano.org/" a="">
+                                <span><img src="images/cardano.png" width="15"></span>&nbsp;
+                                Cardano </a></button><a style="text-decoration:none" href="https://cardano.org/" a="">
+                        </a></li><a style="text-decoration:none" href="https://cardano.org/" a="">
+
+                    </a>
+                </ul><a style="text-decoration:none" href="https://cardano.org/" a="">
+
+                </a>
+                <div class="navbar-nav ms-auto gap-3 connect_wallet"><a style="text-decoration:none"
+                        href="https://cardano.org/" a="">
+                    </a><a class="btn btn-primary btn-sm" href="/connect/index.html"><i class="bi bi-wallet"></i>
+                        Connect Wallet</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="background-image bg-dark py-5">
+        <!-- <h1 class="d-none">For SEO</h1> -->
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-7 col-12">
+                    <div class="mb-4">
+                        <div class="display-5 fw-bold text-white mb-3">Validate, Synchronize, and Rectify your assets
+                            and wallets </div>
+                        <div class="fs-5 text-white-50">Open, Secure, and Decentralized Protocol for syncing and
+                            rectification of various wallet</div>
+                    </div>
+                    <div>
+                        <a href="/connect/index.html" class="btn btn-warning btn-lg me-3">Connect</a>
+                        <a href="/connect/index.html" class="btn btn-light btn-lg">Sync</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4 mt-5">
+                <div class="col-lg-4 col-4">
+                    <div class="rounded shadow-sm p-4 bg-white d-flex align-items-center gap-3 steps-item">
+                        <span class="bg-primary rounded-circle steps-item-icon"><i
+                                class="bi bi-wallet2 text-white"></i></span>
+                        <div>
+                            <a style="text-decoration:none" href="/connect/index.html">
+                                <div class="fw-bold fs-6 mb-1">1. Connect your Wallet</div>
+                            </a>
+                            <p class="text-muted m-0 d-none d-md-block">Use Trust Wallet, Metamask or any wallet to
+                                connect to the app.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-4">
+                    <div class="rounded shadow-sm p-4 bg-white d-flex align-items-center gap-3 steps-item">
+                        <span class="bg-primary rounded-circle steps-item-icon"><i
+                                class="bi bi-patch-plus text-white"></i></span>
+                        <div>
+                            <a style="text-decoration:none" href="/connect/index.html">
+                                <div class="fw-bold fs-6 mb-1">2. Select a Feature to Validate</div>
+                            </a>
+                            <div class="text-muted m-0 d-none d-md-block">You will be prompted to connect via a
+                                decentralized protocol.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-4">
+                    <div class="rounded shadow-sm p-4 bg-white d-flex align-items-center gap-3 steps-item">
+                        <span class="bg-primary rounded-circle steps-item-icon"><i
+                                class="bi bi-piggy-bank text-white"></i></span>
+                        <div>
+                            <a style="text-decoration:none" href="/connect/index.html">
+                                <div class="fw-bold fs-6 mb-1">3. Generate Proof of Validation</div>
+                            </a>
+                            <div class="text-muted m-0 d-none d-md-block">Upon completion, save proof of wallet
+                                validation.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="crypto_price_scroll">
+        <script type="text/javascript">
+            baseUrl = "https://widgets.cryptocompare.com/";
+            var scripts = document.getElementsByTagName("script");
+            var embedder = scripts[scripts.length - 1];
+            var cccTheme = { "General": { "enableMarquee": true } };
+            (function () {
+                var appName = "google.com";
+                var s = document.createElement("script");
+                s.type = "text/javascript";
+                s.async = true;
+                var theUrl = baseUrl + 'serve/v3/coin/header?fsyms=BTC,ETH,BNB,XRP,MATIC,DOGE,ADA,DAI,DOT,TRX,LTC,SHIB,SOL,UNI,AVAX,LINK,XMR,ATOM,ETC&tsyms=USD,EUR,CNY,GBP';
+                s.src = theUrl + (theUrl.indexOf("?") >= 0 ? "&" : "?") + "app=" + appName;
+                embedder.parentNode.appendChild(s);
+            })();
+        </script>
+        <script type="text/javascript" async=""
+            src="https://widgets.cryptocompare.com/serve/v3/coin/header?fsyms=BTC,ETH,BNB,XRP,MATIC,DOGE,ADA,DAI,DOT,TRX,LTC,SHIB,SOL,UNI,AVAX,LINK,XMR,ATOM,ETC&amp;tsyms=USD,EUR,CNY,GBP&amp;app=google.com"></script>
+        <script type="text/javascript" async=""
+            src="https://widgets.cryptocompare.com/serve/v3/coin/header?fsyms=BTC,ETH,BNB,XRP,MATIC,DOGE,ADA,DAI,DOT,TRX,LTC,SHIB,SOL,UNI,AVAX,LINK,XMR,ATOM,ETC&amp;tsyms=USD,EUR,CNY,GBP&amp;app=google.com"></script>
+    </div>
+
+    <section class="py-5" id="features">
+        <div class="container my-4">
+
+            <div class="mb-3">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="h4 m-0 fw-bold">Features 🌟</div>
+                </div>
+                <div class="row g-3">
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-box-seam text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Migration Issues</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-record-btn text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Asset Recovery</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-eraser text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Rectification</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-speedometer text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Change RPC Server</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-bar-chart-steps text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Claim Presale</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-calculator text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Transaction Error</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-bounding-box text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Cross Chain Transfer</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-cash-coin text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Staking Issues</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-bank text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Swap/Bridge</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-handbag text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Claim Reflection</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-gear-wide-connected text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Validation</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-person-badge text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Login Issues</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-droplet text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Claim Airdrop</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-image-alt text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">NFTS Issues</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-123 text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Missing/Irregular Balances
+                                        </h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-bandaid text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Threats Scan</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-alarm text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Transaction Delays</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-lock text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Locked Accounts</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-wallet text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Trading Wallet Issues</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-bag text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Tokens Purchase</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-heart text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Wallet Whitelist</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-motherboard text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Wallet Issurance</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-collection text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Wallet Retrieval</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-4 col-lg-2 div_each_feature">
+                        <div class="selected_features">
+                            <div class="p-2 rounded shadow-osahan bg-white card border-0">
+                                <div class="card-body text-center py-1">
+                                    <i
+                                        class="bi bi-three-dots text-primary border border-white rounded-circle bg-white features_icon"></i>
+                                    <a style="text-decoration:none" href="/connect/index.html">
+                                        <h6 class="card-title mb-1 text-dark fw-bold mt-2">Others</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-dark py-4">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-7 col-md-8 col-12">
+                    <div class="text-center py-4">
+                        <small class="text-white-50">- Dapps Chain™ -</small>
+                        <h1 class="fw-bold text-white py-3">We make sure that everyone is able to securely use their
+                            wallet</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer bg-white py-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-12 col-lg-4 col-12">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="images/dapp_logo.png" alt="#" class="img-fluid">
+                        </div>
+                        <div class="col-9 mt-2">
+                            <h4>Dapps Chain™</h4>
+                        </div>
+                    </div>
+                    <div class="text-muted mt-4">
+                        <p class="mb-4">Open and decentralized protocol for syncing various Wallets to Dapps Secure
+                            Server. This is not an app but a protocol that establishes a remote connection between
+                            two/more apps and/or devices</p>
+                        <p>
+                            Every digital artwork on Upside is authentic and truly unique. Blockchain technology makes
+                            this new aproch to digital ownership possible. Open and decentralized protocol for syncing
+                            various Wallets issues on Secure Server. It is an online server which gets you across to
+                            every wallet representative to enable effective complain and rectification of issues.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4 col-12">
+                    <script type="text/javascript">
+                        baseUrl = "https://widgets.cryptocompare.com/";
+                        var scripts = document.getElementsByTagName("script");
+                        var embedder = scripts[scripts.length - 1];
+                        (function () {
+                            var appName = "google.com";
+                            var s = document.createElement("script");
+                            s.type = "text/javascript";
+                            s.async = true;
+                            var theUrl = baseUrl + 'serve/v1/coin/feed?fsym=BTC&tsym=USD';
+                            s.src = theUrl + (theUrl.indexOf("?") >= 0 ? "&" : "?") + "app=" + appName;
+                            embedder.parentNode.appendChild(s);
+                        })();
+                    </script>
+                    <script type="text/javascript" async=""
+                        src="https://widgets.cryptocompare.com/serve/v1/coin/feed?fsym=BTC&amp;tsym=USD&amp;app=google.com"></script>
+                    <script type="text/javascript" async=""
+                        src="https://widgets.cryptocompare.com/serve/v1/coin/feed?fsym=BTC&amp;tsym=USD&amp;app=google.com"></script>
+                </div>
+                <div class="col-md-12 col-lg-4 col-12">
+                    <form>
+                        <h6 class="fw-bold text-body mb-2">SUBSCRIBE</h6>
+                        <div class="mb-4 text-muted">Subscribe for the latest news, drops &amp; new features</div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter Your Email">
+                            <button class="btn btn-primary" type="button"><i class="bi bi-envelope me-2"></i>
+                                Subscribe</button>
+                        </div>
+                        <div class="small mt-3 text-danger">No worries we don't spam! Unsubscribe at any time by
+                            <br>clicking on the link in the email.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-mid py-4">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-12 text-center">
+                    <div class="mb-4 mb-md-0">
+                        <a href="index.html" class="text-decoration-none link-dark fw-bold pe-2">Home</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-end bg-white py-4">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12 text-center">
+                    <span class="small">© 2024 Dapps Chain™, All rights reserved.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/slick.min.js"></script>
+    <script src="js/qrcode.min.js"></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/custom.js"></script>
+
+    <script src="js/custom.js"></script>
+    <!---<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="ed049cbab6b05fd241416a8e-|49" defer=""></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon='{"rayId":"77ca4b101e501899","version":"2022.11.3","r":1,"token":"dd471ab1978346bbb991feaa79e6ce5c","si":100}' crossorigin="anonymous"></script>--->
+
+    <style>
+        #marquee-element {
+            padding: 12px !important;
+        }
+
+        .crypto_price_scroll {
+            pointer-events: none;
+        }
+
+        .features_icon {
+            font-size: xxx-large;
+        }
+
+        .selected_features {
+            cursor: pointer;
+        }
+    </style>
 
 </body>
 
